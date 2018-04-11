@@ -72,6 +72,7 @@ function refuel(num) {
 }
 
 function lose() {
+	squirrels();
 	speak("Lol! U suck!");
 	refuel(15 - fuel)
 	return window.setTimeout(() => {
@@ -153,19 +154,43 @@ function explosion() {
 	expl.css("display", "block");
 	let src;
 	
-	for (let i = 1; i <= 5; i++) {
+	for (let i = 1; i <= 6; i++) {
 		(function(j){
 			setTimeout(function timer() {
 				src = "assets/2D/expl/expl_0" + j + ".png";
+				if (j == 3)
+					cube.css("visibility", "hidden");
 				expl.attr("src", src);
 			}, j * 300);
 		})( i );
+	}
+}
 
+function squirrels() {
+	let squir = $(".squirrel");
+	let src;
+	let nod = 1;
+	
+	for (let i = 0; i <= 18; i++) {
+		nod = (i % 3) + 1;
+		
+		(function(j, k){
+			setTimeout(function timer() {
+				src = "assets/2D/squirrel/squirrel_0" + j + ".png";
+				squir.attr("src", src);
+			}, k * 100);
+		})( nod, i );
 	}
 }
 
 function speak(sentence) {
 	let speaker = $("#speaker");
+	let secretSpeaker = $("#secret-speaker");
 	
 	speaker.text(sentence);
+	
+	if (isWon)
+		secretSpeaker.text(randNum);
+	else
+		secretSpeaker.text("??");
 }

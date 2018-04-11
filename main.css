@@ -1,5 +1,6 @@
 * {
 	box-sizing: border-box;
+	font-family: monospace;
 	margin: 0;
 	padding: 0;
 }
@@ -34,16 +35,10 @@ img {
 	height: 100vh;
 	flex-direction: column;
 	left: 0;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
-	padding-top: 4rem;
 	position: absolute;
 	width: 67vw;
-}
-
-#rand-canvas {
-	height: inherit;
-	width: inherit;
 }
 
 #btns {
@@ -55,7 +50,7 @@ img {
 	border: 0;
 	border-radius: 5px;
 	box-shadow: 1px 1px 5px black;
-	margin: .5rem;
+	margin: .25rem;
 	outline: 0;
 	padding: .7rem;
 }
@@ -79,68 +74,76 @@ img {
 	padding: 1rem;
 }
 
-#secret-number {
+#secret {
 	color: #454545;
 	font-size: 1.25rem;
 }
 
+#secret-speaker {
+	color: hsl(7, 100%, 50%);
+	font-size: 1.25em;
+	text-shadow: 1px 1px 0px black;
+}
+
 .mini-text {
 	font-size: 1.25rem;
+	margin: .5rem;
 	text-align: center;
 }
 
-.squirrel {
+#squirrels {
 	bottom: 0;
-	left: 40%;
+	display: flex;
+	justify-content: space-around; 
 	position: absolute;
+	width: 100%;
+}
+
+.squirrel {
 }
 
 .squirrel.right {
-	left: 60%;
 	transform: rotateY(180deg);
 }
 
 /* SPACE GAME */
 #space-game {
+	color: white;
 	height: 100vh;
 	position: absolute;
 	right: 0;
 	width: 33vw;
 }
 
-#space-canvas {
-	height: inherit;
-	width: inherit;
-}
-
 #space-bg {
-	height: auto;
-	width: 100%;
+	min-height: 100%;
+	min-width: 100%;
 	position: absolute;
+	z-index: -1;
 }
 
 #ship {
 	top: 10%;
-	left: 47%;
+	left: 40%;
 	position: absolute;
 }
 
 #cube {
 	bottom: 10%;
-	left: 47%;
+	left: 40%;
 	position: absolute;
 }
 
 #expl {
 	bottom: 10%;
 	display: none;
-	left: 47%;
+	left: 40%;
 	position: absolute;
 	z-index: 2;
 }
 
 #laser {
-	left: 47%;
+	left: 40%;
 	position: absolute;
 }
 
