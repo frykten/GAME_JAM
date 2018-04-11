@@ -102,6 +102,7 @@ img {
 
 /* SPACE GAME */
 #space-game {
+	color: white;
 	height: 100vh;
 	position: absolute;
 	right: 0;
@@ -117,6 +118,7 @@ img {
 	height: auto;
 	width: 100%;
 	position: absolute;
+	z-index: -1;
 }
 
 #ship {

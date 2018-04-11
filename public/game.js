@@ -35,7 +35,6 @@ function init() {
 	
 	buttons();
 	
-	
 	console.log();
 };
 
@@ -145,22 +144,23 @@ function renderLaser() {
 		}, 1000);
 	}); 
 	
-//	if (isWon)
+	if (isWon)
 		explosion();
 }
 
 function explosion() {
 	let expl = $("#expl");
-	let src = "assets/2D/expl/expl_01.png";
 	expl.css("display", "block");
-	let i = 1;
+	let src;
 	
-	while (i <= 5) {
-		window.setTimeout(() => {
-			src = "assets/2D/expl/expl_0" + i + ".png";
-			expl.attr("src", src);
-			i++;
-		}, 1000);
+	for (let i = 1; i <= 5; i++) {
+		(function(j){
+			setTimeout(function timer() {
+				src = "assets/2D/expl/expl_0" + j + ".png";
+				expl.attr("src", src);
+			}, j * 300);
+		})( i );
+
 	}
 }
 
