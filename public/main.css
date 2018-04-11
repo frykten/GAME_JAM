@@ -16,6 +16,16 @@ body {
 	flex-direction: row;
 }
 
+img {
+	height: 128px;
+	width: 128px;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: -o-crisp-edges;
+	image-rendering: -webkit-optimize-contrast;
+	-ms-interpolation-mode: nearest-neighbor;
+	image-rendering: pixelated;
+}
+
 
 /* RANDOM NUMBER GAME */
 #rand-game {
@@ -101,6 +111,12 @@ body {
 #space-canvas {
 	height: inherit;
 	width: inherit;
+}
+
+#space-bg {
+	height: auto;
+	width: 100%;
+	position: absolute;
 }
 
 #ship {
