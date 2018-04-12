@@ -34,6 +34,8 @@ function init() {
 	randNum = parseInt(Math.random() * 10);
 	
 	buttons();
+	renderCube();
+	renderShip();
 	
 	console.log();
 };
@@ -45,6 +47,8 @@ function clear() {
 	isWon = false;
 	
 	$(".btn").removeClass("true false");
+	cube.css("visibility", "visible");
+	
 	
 	speak("Let's do it again...");
 }
@@ -183,6 +187,34 @@ function squirrels() {
 	}
 }
 
+function renderCube() {
+	let src;
+	let i = 1;
+	
+	setInterval(function timer() {
+		if (i > 5)
+			i = 1;
+		
+		src = "assets/2D/cube/cube_0" + i + ".png";
+		cube.attr("src", src);
+		i++;
+	}, 500);
+};
+
+function renderShip() {
+	let src;
+	let i = 1;
+	
+	setInterval(function timer() {
+		if (i > 5)
+			i = 1;
+		
+		src = "assets/2D/ship/ship_0" + i + ".png";
+		ship.attr("src", src);
+		i++;
+	}, 1000);
+};
+
 function speak(sentence) {
 	let speaker = $("#speaker");
 	let secretSpeaker = $("#secret-speaker");
@@ -190,6 +222,8 @@ function speak(sentence) {
 	speaker.text(sentence);
 	
 	if (isWon)
+		secretSpeaker.text(randNum);
+	else if (timer == 0)
 		secretSpeaker.text(randNum);
 	else
 		secretSpeaker.text("??");

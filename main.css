@@ -28,9 +28,19 @@ img {
 }
 
 
+.bg {
+	min-height: 100%;
+	min-width: 100%;
+	position: absolute;
+	z-index: -1;
+}
+
+
 /* RANDOM NUMBER GAME */
 #rand-game {
-	background: #f0d8bd;
+	background: url(assets/2D/bg/rand_bg.png);
+	background-size: cover;
+	background-position: center;
 	display: flex;
 	height: 100vh;
 	flex-direction: column;
@@ -46,21 +56,23 @@ img {
 }
 
 .btn {
-	background: white;
+	background: url(assets/2D/panels/btn.png) ;
+	background-size: cover;
+	background-position: center;
+	color: white;
 	border: 0;
-	border-radius: 5px;
-	box-shadow: 1px 1px 5px black;
+	font-size: 1.5rem;
 	margin: .25rem;
 	outline: 0;
-	padding: .7rem;
+	padding: 1.4rem;
 }
 
 .btn.false {
-	background: red;
+	background-image: url(assets/2D/panels/btn_false.png);
 }
 
 .btn.true {
-	background: green;
+	background-image: url(assets/2D/panels/btn_true.png);
 }
 
 .text {
@@ -113,13 +125,6 @@ img {
 	position: absolute;
 	right: 0;
 	width: 33vw;
-}
-
-#space-bg {
-	min-height: 100%;
-	min-width: 100%;
-	position: absolute;
-	z-index: -1;
 }
 
 #ship {
