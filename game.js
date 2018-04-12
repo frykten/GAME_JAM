@@ -1,7 +1,7 @@
 var randCanvas = $("#rand-game"),
 	spaceCanvas = $("#space-game");
 var stage, w, h, loader;
-var ship, cube, laser, expl;
+var ship, cube;
 
 var timer;
 var attack, speed, fuel, score, bestScore;
@@ -40,11 +40,8 @@ function clear() {
 	isLost = false;
 	
 	$(".btn-img").attr("src", "assets/2D/panels/btn.png");
-	cube.css("visibility", "visible");
-	cube.attr("src", "assets/2D/cube/cube_01.png");
 	
-	
-	speak("We warp time, ya stupid. Let's go back? Just click");
+	speak("We warp time, ya beaver-fucker. Let's go back? Just click");
 }
 
 
@@ -97,6 +94,7 @@ function lose() {
 	speak("Lol! Ya're all squirrels now!");
 	refuel(15 - fuel)
 	chgScore();
+	renderNut();
 	enemies(5 - enemiesLeft);
 	
 	setTimeout(() => {
@@ -111,8 +109,13 @@ function win() {
 	
 	speak("You won, jackass... Damnit.");
 	window.setTimeout(() => {
-		speak("Russian roulette! Wanna try again?")
-	}, 2000)
+		if (enemiesLeft == 0) {
+			speak("Well... You won? Nope, we beg to differ. Try again.");
+			enemies(8);
+		} else {
+			speak("Russian roulette! Come on! Shoot!")
+		}
+	}, 1500)
 }
 
 
@@ -172,35 +175,38 @@ function chooseNum() {
 
 
 function shootLaser() {
-	laser = $("<img>").attr("src", "assets/2D/laser/laser_01.png").addClass("laser");
+	let laser = $("<img>")
+		.attr("src", "assets/2D/laser/laser_01.png")
+		.addClass("laser");
+	
 	$("#ship-cont").append(laser);
 	
-	renderLaser();
+	renderLaser(laser);
 }
 
-function renderLaser() {
-	new Promise( (resolve, rej) => {
-		let pos;
-		if (isWon) 
-			pos = "+=70vh";
-		else
-			pos = "+=90vh";
-		laser.animate({top: pos}, 1000, "linear");
-		
-		resolve("Sent");
-	}).then(() => {
-		window.setTimeout(() => {
-			laser.remove();
-		}, 1000);
-	}); 
+function renderLaser(laser) {
+	let posT, posL, rand;
+	rand = Math.random() * 2;
+
+	if (isWon) 
+		posT = "+=70vh", posL = "+=0";
+	else
+		posT = "+=90vh", posL = rand < 1 ? "-=5vw" : "+=8vw";
+
+	laser.animate({top: posT, left: posL}, 1000, "linear");
+
+	window.setTimeout(() => {
+		laser.remove();
+	}, 1010);
 	
 	if (isWon)
 		explosion();
 }
 
 function explosion() {
-	let expl = $("#expl");
-	expl.css("display", "block");
+	let expl = $("#expl")
+		.css("display", "block")
+		.css("top", cube.css("top"));
 	let src;
 	
 	for (let i = 1; i <= 6; i++) {
@@ -210,6 +216,8 @@ function explosion() {
 				if (j == 3)
 					cube.css("visibility", "hidden");
 				expl.attr("src", src);
+				if (j == 6)
+					moveCube();
 			}, j * 300);
 		})( i );
 	}
@@ -249,6 +257,24 @@ function renderCube() {
 		i++;
 	}, 500);
 };
+
+function moveCube() {
+	cube.css("visibility", "visible");
+	cube.attr("src", "assets/2D/cube/cube_01.png");
+	cube.css("top", "120%");
+	
+	let pos = "-=" + (-enemiesLeft * 7.5 + 77.5) + "%";
+	
+	cube.animate({top: pos}, 1500, "linear");
+}
+
+function renderNut() {
+//	let pos = "-=" + (-enemiesLeft * 7.5 + 77.5 ) + "%";
+	let nut = $("#nut")
+		.css("display", "block")
+		.css("top", cube.css("top"))
+		.animate({top: "+=47%"}, 1500, "linear");
+}
 
 function renderShip() {
 	let src;
