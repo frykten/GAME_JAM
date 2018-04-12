@@ -32,7 +32,7 @@ img {
 	min-height: 100%;
 	min-width: 100%;
 	position: absolute;
-	z-index: -1;
+	z-index: -10;
 }
 
 
@@ -55,40 +55,55 @@ img {
 	margin: 4rem auto;
 }
 
+.btn-div {
+	display: inline-block;
+	height: 68px;
+	margin: .25rem;
+	position: relative;
+	width: 52px;
+}
+
 .btn {
-	background: url(assets/2D/panels/btn.png) ;
-	background-size: cover;
-	background-position: center;
 	color: white;
+	background: none;
 	border: 0;
 	font-size: 1.5rem;
-	margin: .25rem;
+	height: inherit;
 	outline: 0;
-	padding: 1.4rem;
-}
-
-.btn.false {
-	background-image: url(assets/2D/panels/btn_false.png);
-}
-
-.btn.true {
-	background-image: url(assets/2D/panels/btn_true.png);
+	width: inherit;
 }
 
 .text {
-	background: white;
-	border: solid 15px gold;
-	border-radius: 5px;
-	box-shadow: 1px 1px 5px black;
+	color: white;
 	font-size: 1.5rem;
 	font-weight: bolder;
 	margin: 2rem auto;
-	padding: 1rem;
+	position: relative;
 }
 
 #secret {
-	color: #454545;
+	height: 82px;
+	width: 330px;
+}
+
+.speaker-img, .btn-img {
+	height: inherit;
+	width: inherit;
+}
+
+#secret-text {
+	color: #d6d6d6;
 	font-size: 1.25rem;
+
+}
+
+.text-in-panel {
+	left: 50%;
+    position: absolute;
+	text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+	width: inherit;
 }
 
 #secret-speaker {
@@ -98,15 +113,21 @@ img {
 }
 
 .mini-text {
+	color: wheat;
 	font-size: 1.25rem;
 	margin: .5rem;
 	text-align: center;
 }
 
+#chat {
+	height: 82px;
+	width: 650px;
+}
+
 #squirrels {
 	bottom: 0;
 	display: flex;
-	justify-content: space-around; 
+	justify-content: center; 
 	position: absolute;
 	width: 100%;
 }
@@ -118,6 +139,20 @@ img {
 	transform: rotateY(180deg);
 }
 
+#laughs {
+	bottom: 100px;
+	display: flex;
+	justify-content: center; 
+	position: absolute;
+	width: 100%;
+}
+
+.laugh {
+	color: white;
+	text-align: center;
+	width: 128px;
+}
+
 /* SPACE GAME */
 #space-game {
 	color: white;
@@ -127,10 +162,20 @@ img {
 	width: 33vw;
 }
 
-#ship {
+#ship-cont {
 	top: 10%;
 	left: 40%;
 	position: absolute;
+}
+
+#ship {
+	
+}
+
+.laser {
+	position: absolute;
+	top: 0%;
+	width: inherit;
 }
 
 #cube {
@@ -147,12 +192,83 @@ img {
 	z-index: 2;
 }
 
-#laser {
-	left: 40%;
-	position: absolute;
+#space-text-cont {
+	margin: 1rem;
+	margin-left: 2rem;
 }
 
-@keyframes shooting {
-	from { top: 0%; }
-	to { top: 100%; }
+#enemies {
+	display: flex;
+	align-items: center;
+}
+
+#enemies-left {
+	display: inline-flex;
+	justify-content: center;
+}
+
+.mini-cube {
+	height: 24px;
+	width: 24px;
+	margin: 1px;
+}
+
+
+/* LINE */
+#line {
+	height: 100vh;
+	left: 67vw;
+	position: absolute;
+	width: 10px;
+	box-shadow: -5px 0px 20px rgba(0, 0, 0, 0.8), -5px 0px 40px rgba(0, 0, 0, 0.8);
+}
+
+/* MODAL */
+#modal {
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    height: 100vh;
+    left: 0;
+	justify-content: center;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 100;
+}
+
+#modal-content {
+    background-color: rgba(0, 0, 0, 0.75);
+    border: 1px solid #888;
+	border-radius: 10px;
+	color: white;
+    margin: auto;
+    padding: 2rem;
+    width: 80%;
+}
+
+#modal-content h1 {
+	margin: 1rem;
+}
+
+#attention {
+	color: rgba(255, 255, 255, 0.8);
+	font-size: .9rem;
+	font-style: italic;
+	margin: 3rem auto 0;
+	text-align: center;
+}
+
+#close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#close:hover,
+#close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

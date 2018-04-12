@@ -11,33 +11,67 @@
 
 	<body onload="init()">
 	    <div id="wrap">
+        	<div id="modal">
+				<div id="modal-content">
+					<span id="close">&times;</span>
+					<h1>The Squirrel cultists are trying to invade the galaxy.</h1>
+					<br>
+					<p>Pick a number to shoot their <em>evilish-cubic-space-purple-flashy-thingy-ed ship</em>. As an <u>under-the-average engineer</u>, ya've got one <strong>button</strong> to push but ya don't know which one and there's like ten of 'em.</p>
+					<br>
+					<p>Time counts. ya've got only 3 tries before they launch an evil nut on Earth.</p>
+					<br>
+					<p>Fortunately, the Squirrels are watchin' ya and insulting ya whenever ya miss which makes it easier to shoot'em.</p>
+					<br>
+					<p>Unfortunately, they have more than one ship coming and u don't have a lot of fuel...</p>
+					<br>
+					<p>As we already said: ya kinda suck... But try to score as many as ya can, ya redneck gingerbread.</p>
+					<p id="attention">N.B. : no support for dumbphones, tablets and IE. Go choke on yourself if possible.</p>
+				</div>
+			</div>
+        
 	        <section id="rand-game">
           		<img src="assets/2D/bg/rand_bg.png" alt="" id="rand-bg" class="bg">  
-           		<div class="text">
-           			<h3 id="secret">The secret number is: <span id="secret-speaker">??</span></h3>
+           		<div class="text" id="secret">
+           			<img src="assets/2D/panels/secret_speaker.png" alt="" class="speaker-img">
+           			<h3 id="secret-text" class="text-in-panel">The secret number is: <span id="secret-speaker">??</span></h3>
            		</div>
            		
             	<section id="btns">
             		<p class="mini-text">Pick a number</p>
             	</section>
             	
-            	<div class="text">
-					<h3 id="speaker">Yo</h3>
+            	<div class="text" id="chat">
+            		<img src="assets/2D/panels/secret_speaker.png" alt="" class="speaker-img">
+					<h3 id="speaker" class="text-in-panel">Yo shitheads</h3>
             	</div>
 	            
 	            <section id="squirrels">
 	            	<img src="assets/2D/squirrel/squirrel_01.png" alt="" class="squirrel left">
+	            	<img src="assets/2D/squirrel/squirrel_01.png" alt="" class="squirrel left">
+	            	<img src="assets/2D/squirrel/squirrel_01.png" alt="" class="squirrel right">
 	            	<img src="assets/2D/squirrel/squirrel_01.png" alt="" class="squirrel right">
 	            </section>
+	            <section id="laughs"></section>
 	        </section>
+	        
+	        <img src="assets/2D/panels/line.png" alt="" id="line">
 	        
 	        <section id="space-game">
 				<img src="assets/2D/bg/space_bg.png" alt="" id="space-bg" class="bg">            	
-				<img src="assets/2D/ship/ship_01.png" alt="" id="ship">
-            	<p id="timer">Timer: 3</p>
-            	<p id="fuel">Fuel: 15</p>
-            	<img src="assets/2D/cube/cube_01.png" alt="" id="cube">
-            	<img src="" alt="" id="expl">
+				<div id="ship-cont">
+					<img src="assets/2D/ship/ship_01.png" alt="" id="ship">
+				</div>
+           		<div id="space-text-cont">
+	          		<p id="enemies">Enemies left: <span id="enemies-left"></span></p>
+	          		<p id="score">Score: 0</p>
+	          		<p id="best-score">Best Score: 0</p>
+					<p id="fuel">Fuel: 15</p>
+					<p id="timer">Timer: 3</p>
+           		</div>
+            	<div id="cube-cont">
+					<img src="assets/2D/cube/cube_01.png" alt="" id="cube">
+					<img src="" alt="" id="expl">
+            	</div>
 	        </section>
 	    </div>
 	    

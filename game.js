@@ -4,26 +4,13 @@ var stage, w, h, loader;
 var ship, cube, laser, expl;
 
 var timer;
-var attack, speed, fuel;
+var attack, speed, fuel, score, bestScore;
+var enemiesLeft;
 
 var randNum, chosNum;
 
 var isWon = false;
-
-function buttons() {
-	let btns = $("#btns");
-	
-	for (let i = 0; i < 10; i++) {
-		let btn = $("<button>");
-		btn
-			.attr("data-num", i)
-			.addClass("btn numbers")
-			.text(i)
-			.click(chooseNum);
-		
-		btns.append(btn);
-	}
-}
+var isLost = false;
 
 
 function init() {
@@ -31,32 +18,40 @@ function init() {
 	cube = $("#cube");
 	timer = 3;
 	fuel = 15;
-	randNum = parseInt(Math.random() * 10);
+	score = 0;
+	bestScore = 0;
+	enemiesLeft = 5;
+	enemies(5 - enemiesLeft);
+	randNum = Math.floor(Math.random() * 10);
 	
 	buttons();
 	renderCube();
-	renderShip();
+//	renderShip();
+	modal();
 	
 	console.log();
 };
 
 function clear() {
 	chosNum = null;
-	randNum = parseInt(Math.random() * 10);
+	randNum = Math.floor(Math.random() * 10);
 	time();
 	isWon = false;
+	isLost = false;
 	
-	$(".btn").removeClass("true false");
+	$(".btn-img").attr("src", "assets/2D/panels/btn.png");
 	cube.css("visibility", "visible");
+	cube.attr("src", "assets/2D/cube/cube_01.png");
 	
 	
-	speak("Let's do it again...");
+	speak("We warp time, ya stupid. Let's go back? Just click");
 }
+
 
 function time() {
 	timer = timer -1;
-	
-	if (isWon || !chosNum)
+
+	if (isWon || isLost)
 		timer = 3;
 	if (timer == 0)
 		lose();
@@ -75,38 +70,98 @@ function refuel(num) {
 	$("#fuel").text("Fuel: " + fuel);
 }
 
+function chgScore() {
+	if (isWon) 	score++;
+	if (isLost)	score = 0;
+	
+	bestScore = bestScore < score ? score : bestScore;
+	
+	$("#score").text("Score: " + score);
+	$("#best-score").text("Best Score: " + bestScore);
+}
+
+function enemies(num) {
+	enemiesLeft = enemiesLeft + num;
+	$("#enemies-left").empty();
+	
+	for (let i = 0; i < enemiesLeft; i++) {
+		let img = $("<img>").attr("src", "assets/2D/cube/cube_01.png").addClass("mini-cube");
+		$("#enemies-left").append(img);
+	}
+}
+
+
 function lose() {
+	isLost = true;
 	squirrels();
-	speak("Lol! U suck!");
+	speak("Lol! Ya're all squirrels now!");
 	refuel(15 - fuel)
-	return window.setTimeout(() => {
-			clear()
-		}, 2000);
+	chgScore();
+	enemies(5 - enemiesLeft);
+	
+	setTimeout(() => {
+		clear();
+	}, 2500);
+}
+
+function win() {
+	isWon = true;
+	chgScore();
+	enemies(-1);
+	
+	speak("You won, jackass... Damnit.");
+	window.setTimeout(() => {
+		speak("Russian roulette! Wanna try again?")
+	}, 2000)
+}
+
+
+function buttons() {
+	let btns = $("#btns");
+	
+	for (let i = 0; i < 10; i++) {
+		let div = $("<div>")
+			.addClass("btn-div");
+		let img = $("<img>")
+			.attr("src", "assets/2D/panels/btn.png")
+			.addClass("btn-img");
+		
+		let btn = $("<button>");
+		btn
+			.attr("data-num", i)
+			.addClass("btn numbers text-in-panel")
+			.text(i)
+			.click(chooseNum);
+		
+		div.append(img);
+		div.append(btn);
+		btns.append(div);
+	}
 }
 
 function chooseNum() {
 	let tBtn = $(this);
 	chosNum = tBtn.data("num");
-
+	let bg = tBtn.closest("div").find("img");
+	
 	if (isWon) {
 		return clear();
 	}
 	
+	if (isLost)
+		return;
+	
 	if (chosNum == randNum) {
-		isWon = true;
-		tBtn.addClass("true");
-		speak("You won, jackass...");
-		window.setTimeout(() => {
-			speak("Click a button if you dare!")
-		}, 2000)
+		win();
+		bg.attr("src", "assets/2D/panels/btn_true.png");
 	}
 	else if (chosNum < randNum) {
-		tBtn.addClass("false");
-		speak("Try bigger guns, ya smurf!");
+		bg.attr("src", "assets/2D/panels/btn_false.png");
+		speak("Ya shoot with ur dick? Cuz it's too small!!!");
 	}
 	else {
-		tBtn.addClass("false");
-		speak("Nay... Don't think u're better than us.");
+		bg.attr("src", "assets/2D/panels/btn_false.png");
+		speak("Stop stomping on the buttons... Butthead.");
 	}
 	
 	shootLaser();
@@ -115,20 +170,10 @@ function chooseNum() {
 		time();
 }
 
+
 function shootLaser() {
 	laser = $("<img>").attr("src", "assets/2D/laser/laser_01.png").addClass("laser");
-	spaceCanvas.append(laser);
-	
-	laser.position({
-		at: "left",
-		of: ship,
-		using: (e, ui) => {
-			laser.css({
-				top: e.top,
-				left: e.left,
-			});
-		}
-	});
+	$("#ship-cont").append(laser);
 	
 	renderLaser();
 }
@@ -175,6 +220,8 @@ function squirrels() {
 	let src;
 	let nod = 1;
 	
+	squir.each(() => { $("#laughs").append("<p class='laugh'>Hihi") });
+	
 	for (let i = 0; i <= 18; i++) {
 		nod = (i % 3) + 1;
 		
@@ -182,7 +229,9 @@ function squirrels() {
 			setTimeout(function timer() {
 				src = "assets/2D/squirrel/squirrel_0" + j + ".png";
 				squir.attr("src", src);
-			}, k * 100);
+				if (k * 75 == 18 * 75)
+					$("#laughs").empty();
+			}, k * 75);
 		})( nod, i );
 	}
 }
@@ -215,16 +264,35 @@ function renderShip() {
 	}, 1000);
 };
 
+function modal() {
+	let modal = $("#modal");
+	let span = $("#close");
+	
+	function close() {
+		modal.css("display", "none");
+		squirrels();
+		speak("Stupid fat-jelly hairy hobbit!");
+	}
+	
+	span.click(function() {
+		close();
+	});
+	
+	window.onclick = function(event) {
+		if (event.target == modal[0]) {
+			close();
+		}
+	};
+}
+
+
 function speak(sentence) {
 	let speaker = $("#speaker");
 	let secretSpeaker = $("#secret-speaker");
 	
 	speaker.text(sentence);
 	
-	if (isWon)
-		secretSpeaker.text(randNum);
-	else if (timer == 0)
-		secretSpeaker.text(randNum);
-	else
-		secretSpeaker.text("??");
+	if 			(isWon) secretSpeaker.text(randNum);
+	else if 	(timer == 0) secretSpeaker.text(randNum);
+	else 		secretSpeaker.text("??");
 }
