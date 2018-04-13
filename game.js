@@ -26,7 +26,6 @@ function init() {
 	
 	buttons();
 	renderCube();
-//	renderShip();
 	modal();
 	
 	console.log();
@@ -41,7 +40,7 @@ function clear() {
 	
 	$(".btn-img").attr("src", "assets/2D/panels/btn.png");
 	
-	speak("We warp time, ya beaver-fucker. Let's go back? Just click");
+	speak("We can warp time, ya beaver-fucker. Just click. And die. You're funny.");
 }
 
 
@@ -68,7 +67,7 @@ function refuel(num) {
 }
 
 function chgScore() {
-	if (isWon) 	score++;
+	if (isWon) 	score += timer + 1;
 	if (isLost)	score = 0;
 	
 	bestScore = bestScore < score ? score : bestScore;
@@ -91,7 +90,7 @@ function enemies(num) {
 function lose() {
 	isLost = true;
 	squirrels();
-	speak("Lol! Ya're all squirrels now!");
+	speak("Lol! Ya're all squirrels now! Earth is ours.");
 	refuel(15 - fuel)
 	chgScore();
 	renderNut();
@@ -107,7 +106,7 @@ function win() {
 	chgScore();
 	enemies(-1);
 	
-	speak("You won, jackass... Damnit.");
+	speak("You destroyed the ship, son of a bird... Damnit.");
 	window.setTimeout(() => {
 		if (enemiesLeft == 0) {
 			speak("Well... You won? Nope, we beg to differ. Try again.");
@@ -160,7 +159,7 @@ function chooseNum() {
 	}
 	else if (chosNum < randNum) {
 		bg.attr("src", "assets/2D/panels/btn_false.png");
-		speak("Ya shoot with ur dick? Cuz it's too small!!!");
+		speak("What? Ya shoot with ur dick? Cuz it's way too small!!!");
 	}
 	else {
 		bg.attr("src", "assets/2D/panels/btn_false.png");
@@ -228,7 +227,7 @@ function squirrels() {
 	let src;
 	let nod = 1;
 	
-	squir.each(() => { $("#laughs").append("<p class='laugh'>Hihi") });
+	squir.each(() => { $("#laughs").append("<p class='laugh'>Hihihi") });
 	
 	for (let i = 0; i <= 18; i++) {
 		nod = (i % 3) + 1;
@@ -275,20 +274,6 @@ function renderNut() {
 		.css("top", cube.css("top"))
 		.animate({top: "+=47%"}, 1500, "linear");
 }
-
-function renderShip() {
-	let src;
-	let i = 1;
-	
-	setInterval(function timer() {
-		if (i > 5)
-			i = 1;
-		
-		src = "assets/2D/ship/ship_0" + i + ".png";
-		ship.attr("src", src);
-		i++;
-	}, 1000);
-};
 
 function modal() {
 	let modal = $("#modal");

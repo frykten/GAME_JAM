@@ -137,9 +137,6 @@ img {
 	width: 100%;
 }
 
-.squirrel {
-}
-
 .squirrel.right {
 	transform: rotateY(180deg);
 }
