@@ -26,6 +26,7 @@ function init() {
 	
 	buttons();
 	renderCube();
+	renderShip();
 	modal();
 	
 	console.log();
@@ -89,7 +90,7 @@ function enemies(num) {
 
 function lose() {
 	isLost = true;
-	squirrels();
+	squirLaugh();
 	speak("Lol! Ya're all squirrels now! Earth is ours.");
 	refuel(15 - fuel)
 	chgScore();
@@ -184,19 +185,19 @@ function shootLaser() {
 }
 
 function renderLaser(laser) {
-	let posT, posL, rand;
+	let posTop, posLeft, time, rand;
 	rand = Math.random() * 2;
 
 	if (isWon) 
-		posT = "+=70vh", posL = "+=0";
+		posTop = "+=65vh", posLeft = "+=0", time = 800;
 	else
-		posT = "+=90vh", posL = rand < 1 ? "-=5vw" : "+=8vw";
+		posTop = "+=90vh", posLeft = rand < 1 ? "-=5vw" : "+=8vw", time = 1000;
 
-	laser.animate({top: posT, left: posL}, 1000, "linear");
+	laser.animate({top: posTop, left: posLeft}, time, "linear");
 
 	window.setTimeout(() => {
 		laser.remove();
-	}, 1010);
+	}, time-20);
 	
 	if (isWon)
 		explosion();
@@ -222,7 +223,7 @@ function explosion() {
 	}
 }
 
-function squirrels() {
+function squirLaugh() {
 	let squir = $(".squirrel");
 	let src;
 	let nod = 1;
@@ -234,14 +235,45 @@ function squirrels() {
 		
 		(function(j, k){
 			setTimeout(function timer() {
-				src = "assets/2D/squirrel/squirrel_0" + j + ".png";
+				src = "assets/2D/squirrel/laughing/squirrel_l_0" + j + ".png";
 				squir.attr("src", src);
-				if (k * 75 == 18 * 75)
+				if (k * 75 == 18 * 75) {
 					$("#laughs").empty();
+					squirStand();
+				}
 			}, k * 75);
 		})( nod, i );
 	}
 }
+
+function squirStand() {
+	let squir = $(".squirrel");
+	let src;
+	let i = 1;
+	
+	setInterval(function timer() {
+		if (i > 4)
+			i = 1;
+		
+		src = "assets/2D/squirrel/standing/squirrel_s_0" + i + ".png";
+		squir.attr("src", src);
+		i++;
+	}, 250);
+}
+
+function renderShip() {
+	let src;
+	let i = 2;
+	
+	setInterval(function timer() {
+		if (i > 6)
+			i = 2;
+		
+		src = "assets/2D/ship/ship_0" + i + ".png";
+		ship.attr("src", src);
+		i++;
+	}, 500);
+};
 
 function renderCube() {
 	let src;
@@ -281,7 +313,7 @@ function modal() {
 	
 	function close() {
 		modal.css("display", "none");
-		squirrels();
+		squirLaugh();
 		speak("Stupid fat-jelly hairy hobbit!");
 	}
 	

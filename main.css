@@ -165,13 +165,23 @@ img {
 }
 
 #ship-cont {
+	animation: moveShipY 8s alternate ease-in-out infinite, moveShipX 2s alternate ease-in-out infinite;
 	top: 10%;
 	left: 40%;
 	position: absolute;
 }
 
 #ship {
-	
+}
+
+@keyframes moveShipY {
+    from {top: 10%;}
+    to {top: 15%;}
+}
+
+@keyframes moveShipX {
+    from {left: 40%;}
+    to {left: 45%;}
 }
 
 .laser {
@@ -251,13 +261,14 @@ img {
     background-color: rgba(0, 0, 0, 0.75);
     border: 1px solid #888;
 	border-radius: 10px;
-	color: white;
+	color: rgba(255, 255, 255, 0.9);
     margin: auto;
     padding: 2rem;
     width: 80%;
 }
 
 #modal-content h1 {
+	color: white;
 	margin: 1rem;
 }
 
